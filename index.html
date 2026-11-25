@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Arrays - Web Technologies</title>
+<style>
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.6}
+header{background:#172554;color:white;text-align:center;padding:30px 16px}
+header h1{margin:0 0 8px}
+header p{margin:0;color:#dbeafe}
+main{max-width:1050px;margin:26px auto;padding:0 16px}
+.layout{display:grid;grid-template-columns:235px 1fr;gap:18px;align-items:start}
+nav,.content{background:white;border-radius:12px;padding:18px;box-shadow:0 3px 12px #00000012}
+nav{position:sticky;top:12px}
+nav button{display:block;width:100%;text-align:left;margin:7px 0;padding:11px 12px;border:0;border-radius:7px;background:#eff6ff;color:#1d4ed8;cursor:pointer;font-weight:bold}
+nav button:hover,nav button.active{background:#1d4ed8;color:white}
+.topic{display:none}.topic.active{display:block}
+h2{color:#1d4ed8;margin-top:0}
+h3{color:#334155;margin:22px 0 8px}
+pre{background:#0f172a;color:#a5f3fc;padding:16px;border-radius:8px;overflow-x:auto;white-space:pre-wrap}
+code{font-family:Consolas,monospace}
+.run{background:#2563eb;color:white;border:0;border-radius:7px;padding:11px 17px;cursor:pointer;font-size:15px}
+.run:hover{background:#1d4ed8}
+.note{background:#fef3c7;padding:12px;border-radius:8px;margin:15px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.tile{background:#eff6ff;border-left:4px solid #2563eb;padding:13px;border-radius:7px}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{border:1px solid #cbd5e1;padding:10px;text-align:left}
+th{background:#dbeafe}
+footer{text-align:center;color:#64748b;padding:20px}
+@media(max-width:700px){.layout{grid-template-columns:1fr}nav{position:static;display:grid;grid-template-columns:1fr 1fr;gap:5px}nav button{margin:0}}
+</style>
+</head>
+<body>
+<header>
+  <h1>JavaScript Arrays</h1>
+  <p>Web Technologies | Array Types, Methods, Examples and Console Output</p>
+</header>
+
+<main>
+<div class="layout">
+<nav aria-label="Array topics">
+  <button class="active" onclick="showTopic('intro',this)">1. Introduction</button>
+  <button onclick="showTopic('types',this)">2. Types of Arrays</button>
+  <button onclick="showTopic('create',this)">3. Creating Arrays</button>
+  <button onclick="showTopic('access',this)">4. Access & Update</button>
+  <button onclick="showTopic('methods',this)">5. Array Methods</button>
+  <button onclick="showTopic('loop',this)">6. Array Iteration</button>
+  <button onclick="showTopic('objects',this)">7. Array of Objects</button>
+</nav>
+
+<div class="content">
+<section id="intro" class="topic active">
+<h2>1. Introduction to Arrays</h2>
+<p>An array is a special JavaScript object used to store multiple values in a single variable. Array positions are called indexes, and indexing starts from <b>0</b>.</p>
+<div class="grid">
+  <div class="tile"><b>Ordered</b><br>Items keep their position.</div>
+  <div class="tile"><b>Zero-based</b><br>First item is at index 0.</div>
+  <div class="tile"><b>Dynamic</b><br>Items can be added or removed.</div>
+  <div class="tile"><b>Mixed values</b><br>Can contain different data types.</div>
+</div>
+<h3>Example</h3>
+<pre><code>let fruits = ["Apple", "Banana", "Mango"];
+
+console.log(fruits);
+console.log("First fruit:", fruits[0]);
+console.log("Array length:", fruits.length);
+console.log("Type:", typeof fruits);</code></pre>
+<button class="run" onclick="runIntro()">Run Introduction Example</button>
+</section>
+
+<section id="types" class="topic">
+<h2>2. Types / Common Array Structures</h2>
+<p>JavaScript has one built-in Array type. In lessons, arrays are commonly grouped by how their elements are organized:</p>
+<div class="grid">
+  <div class="tile"><b>One-dimensional array</b><br>A simple list of values.</div>
+  <div class="tile"><b>Two-dimensional array</b><br>An array containing rows (arrays).</div>
+  <div class="tile"><b>Multidimensional / nested array</b><br>Arrays inside other arrays at multiple levels.</div>
+  <div class="tile"><b>Mixed-type array</b><br>Stores values such as numbers, strings and booleans.</div>
+  <div class="tile"><b>Array of objects</b><br>Stores multiple objects in one array.</div>
+</div>
+<h3>Examples</h3>
+<pre><code>// 1D array
+let marks = [85, 90, 78];
+
+// 2D array
+let matrix = [
+  [1, 2, 3],
+  [4, 5, 6]
+];
+
+// Nested array
+let nested = [10, [20, 30], [40, [50]]];
+
+// Mixed-type array
+let mixed = [25, "Hello", true, null];
+
+// Array of objects
+let students = [
+  { name: "Ravi", marks: 85 },
+  { name: "Priya", marks: 92 }
+];
+
+console.log(marks);
+console.log(matrix);
+console.log(nested);
+console.log(mixed);
+console.log(students);</code></pre>
+<button class="run" onclick="runTypes()">Run Array Types Example</button>
+<p class="note">Note: These are common array structures, not separate built-in JavaScript data types. JavaScript arrays are all of type <code>object</code> when checked with <code>typeof</code>.</p>
+</section>
+
+<section id="create" class="topic">
+<h2>3. Creating Arrays</h2>
+<p>Arrays can be created using array literals or the Array constructor. Array literals are the most common approach.</p>
+<pre><code>// Array literal
+let colors = ["Red", "Green", "Blue"];
+
+// Array constructor
+let numbers = new Array(10, 20, 30);
+
+// Empty array, then add values
+let subjects = [];
+subjects[0] = "HTML";
+subjects[1] = "CSS";
+
+console.log(colors);
+console.log(numbers);
+console.log(subjects);</code></pre>
+<button class="run" onclick="runCreate()">Run Creating Arrays Example</button>
+</section>
+
+<section id="access" class="topic">
+<h2>4. Accessing and Updating Array Elements</h2>
+<p>Use the index to read or change an element. The <code>length</code> property gives the number of elements.</p>
+<pre><code>let languages = ["HTML", "CSS", "JavaScript"];
+
+// Access
+console.log(languages[0]);
+console.log(languages[2]);
+
+// Update
+languages[1] = "Bootstrap";
+
+// Add at the end using an index
+languages[languages.length] = "React";
+
+// Length
+console.log("Length:", languages.length);
+console.log("Updated array:", languages);</code></pre>
+<button class="run" onclick="runAccess()">Run Access & Update Example</button>
+</section>
+
+<section id="methods" class="topic">
+<h2>5. Important Array Methods</h2>
+<table>
+<tr><th>Method</th><th>Purpose</th></tr>
+<tr><td>push()</td><td>Adds item(s) at the end</td></tr>
+<tr><td>pop()</td><td>Removes the last item</td></tr>
+<tr><td>unshift()</td><td>Adds item(s) at the beginning</td></tr>
+<tr><td>shift()</td><td>Removes the first item</td></tr>
+<tr><td>splice()</td><td>Adds, removes or replaces items</td></tr>
+<tr><td>slice()</td><td>Returns a selected portion without changing the original</td></tr>
+<tr><td>concat()</td><td>Combines arrays</td></tr>
+<tr><td>includes()</td><td>Checks whether a value exists</td></tr>
+<tr><td>indexOf()</td><td>Returns the first matching index</td></tr>
+<tr><td>join()</td><td>Joins elements into a string</td></tr>
+<tr><td>sort()</td><td>Sorts array elements</td></tr>
+<tr><td>reverse()</td><td>Reverses element order</td></tr>
+</table>
+<pre><code>let fruits = ["Apple", "Banana", "Mango"];
+
+fruits.push("Orange");
+console.log("push:", fruits);
+
+fruits.pop();
+console.log("pop:", fruits);
+
+fruits.unshift("Grapes");
+console.log("unshift:", fruits);
+
+fruits.shift();
+console.log("shift:", fruits);
+
+console.log("slice:", fruits.slice(0, 2));
+console.log("includes Banana:", fruits.includes("Banana"));
+console.log("index of Mango:", fruits.indexOf("Mango"));
+console.log("join:", fruits.join(" - "));
+
+let more = fruits.concat(["Kiwi", "Pineapple"]);
+console.log("concat:", more);
+
+let values = [5, 2, 10, 1];
+console.log("numeric sort:", [...values].sort((a,b) => a-b));
+console.log("reverse:", [...values].reverse());</code></pre>
+<button class="run" onclick="runMethods()">Run Array Methods Example</button>
+<p class="note">Note: <code>sort()</code> changes the original array. Use a numeric comparison function to sort numbers correctly.</p>
+</section>
+
+<section id="loop" class="topic">
+<h2>6. Iterating Through Arrays</h2>
+<p>Iteration means accessing array elements one by one.</p>
+<pre><code>let numbers = [10, 20, 30, 40];
+
+// for loop
+for (let i = 0; i < numbers.length; i++) {
+  console.log("for loop:", numbers[i]);
+}
+
+// for...of
+for (let value of numbers) {
+  console.log("for...of:", value);
+}
+
+// forEach()
+numbers.forEach(function(value, index) {
+  console.log("forEach:", index, value);
+});
+
+// map()
+let doubled = numbers.map(value => value * 2);
+console.log("map:", doubled);
+
+// filter()
+let above20 = numbers.filter(value => value > 20);
+console.log("filter:", above20);
+
+// reduce()
+let total = numbers.reduce((sum, value) => sum + value, 0);
+console.log("reduce total:", total);
+
+// find()
+console.log("find:", numbers.find(value => value > 20));</code></pre>
+<button class="run" onclick="runIteration()">Run Iteration Example</button>
+</section>
+
+<section id="objects" class="topic">
+<h2>7. Array of Objects</h2>
+<p>An array of objects is useful for storing related records, such as student details, products or employees.</p>
+<pre><code>let students = [
+  { name: "Ravi", age: 21, marks: 85 },
+  { name: "Priya", age: 22, marks: 92 },
+  { name: "Arun", age: 20, marks: 78 }
+];
+
+// Display all students
+students.forEach(student => {
+  console.log(student.name, student.age, student.marks);
+});
+
+// Access one student's property
+console.log("First student:", students[0].name);
+
+// Filter students with marks above 80
+let passed = students.filter(student => student.marks > 80);
+console.log("Above 80 marks:", passed);</code></pre>
+<button class="run" onclick="runObjects()">Run Array of Objects Example</button>
+</section>
+
+<p class="note"><b>Console instructions:</b> Press F12, choose Console, then select a topic and click its Run button. The Introduction example runs automatically when this page first opens.</p>
+</div>
+</div>
+</main>
+<footer>Web Technologies · JavaScript Arrays Practice</footer>
+
+<script>
+function showTopic(id, button) {
+  document.querySelectorAll(".topic").forEach(section => section.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll("nav button").forEach(btn => btn.classList.remove("active"));
+  button.classList.add("active");
+  const runners = {
+    intro: runIntro, types: runTypes, create: runCreate,
+    access: runAccess, methods: runMethods, loop: runIteration,
+    objects: runObjects
+  };
+  runners[id]();
+}
+
+function runIntro() {
+  console.log("\n===== INTRODUCTION TO ARRAYS =====");
+  let fruits = ["Apple", "Banana", "Mango"];
+  console.log("Array:", fruits);
+  console.log("First fruit:", fruits[0]);
+  console.log("Array length:", fruits.length);
+  console.log("Type:", typeof fruits);
+}
+function runTypes() {
+  console.log("\n===== TYPES / ARRAY STRUCTURES =====");
+  let marks = [85, 90, 78];
+  let matrix = [[1, 2, 3], [4, 5, 6]];
+  let nested = [10, [20, 30], [40, [50]]];
+  let mixed = [25, "Hello", true, null];
+  let students = [{name:"Ravi",marks:85},{name:"Priya",marks:92}];
+  console.log("1D array:", marks);
+  console.log("2D array:", matrix);
+  console.log("Nested array:", nested);
+  console.log("Mixed-type array:", mixed);
+  console.log("Array of objects:", students);
+  console.log("typeof array:", typeof marks);
+  console.log("Is array:", Array.isArray(marks));
+}
+function runCreate() {
+  console.log("\n===== CREATING ARRAYS =====");
+  let colors = ["Red", "Green", "Blue"];
+  let numbers = new Array(10, 20, 30);
+  let subjects = [];
+  subjects[0] = "HTML";
+  subjects[1] = "CSS";
+  console.log("Array literal:", colors);
+  console.log("Array constructor:", numbers);
+  console.log("Empty array then assigned:", subjects);
+}
+function runAccess() {
+  console.log("\n===== ACCESSING AND UPDATING =====");
+  let languages = ["HTML", "CSS", "JavaScript"];
+  console.log("First item:", languages[0]);
+  console.log("Third item:", languages[2]);
+  languages[1] = "Bootstrap";
+  languages[languages.length] = "React";
+  console.log("Length:", languages.length);
+  console.log("Updated array:", languages);
+}
+function runMethods() {
+  console.log("\n===== ARRAY METHODS =====");
+  let fruits = ["Apple", "Banana", "Mango"];
+  fruits.push("Orange"); console.log("push:", fruits);
+  fruits.pop(); console.log("pop:", fruits);
+  fruits.unshift("Grapes"); console.log("unshift:", fruits);
+  fruits.shift(); console.log("shift:", fruits);
+  console.log("slice:", fruits.slice(0, 2));
+  console.log("includes Banana:", fruits.includes("Banana"));
+  console.log("index of Mango:", fruits.indexOf("Mango"));
+  console.log("join:", fruits.join(" - "));
+  console.log("concat:", fruits.concat(["Kiwi", "Pineapple"]));
+  let values = [5, 2, 10, 1];
+  console.log("numeric sort:", [...values].sort((a,b) => a-b));
+  console.log("reverse:", [...values].reverse());
+}
+function runIteration() {
+  console.log("\n===== ARRAY ITERATION =====");
+  let numbers = [10, 20, 30, 40];
+  for (let i = 0; i < numbers.length; i++) console.log("for loop:", numbers[i]);
+  for (let value of numbers) console.log("for...of:", value);
+  numbers.forEach((value,index) => console.log("forEach:", index, value));
+  console.log("map:", numbers.map(value => value * 2));
+  console.log("filter:", numbers.filter(value => value > 20));
+  console.log("reduce total:", numbers.reduce((sum,value) => sum + value, 0));
+  console.log("find:", numbers.find(value => value > 20));
+}
+function runObjects() {
+  console.log("\n===== ARRAY OF OBJECTS =====");
+  let students = [
+    {name:"Ravi",age:21,marks:85},
+    {name:"Priya",age:22,marks:92},
+    {name:"Arun",age:20,marks:78}
+  ];
+  students.forEach(student => console.log(student.name, student.age, student.marks));
+  console.log("First student:", students[0].name);
+  console.log("Above 80 marks:", students.filter(student => student.marks > 80));
+}
+
+console.log("===== JAVASCRIPT ARRAYS PRACTICE =====");
+runIntro();
+</script>
+</body>
+</html>
